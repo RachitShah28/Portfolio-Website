@@ -156,9 +156,9 @@ contactForm.addEventListener('submit', async (e) => {
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.email,
-            phone: formData.phone,
-            company: formData.company,
-            leadSource: 'Website - Portfolio Contact Form',
+            phone: formData.phone || '',
+            company: formData.company || 'Not Specified', // Default value if empty
+            leadSource: 'Website',
             description: formData.message
         };
         

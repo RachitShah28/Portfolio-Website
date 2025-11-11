@@ -9,7 +9,7 @@ const CONFIG = {
     
     // Resume Configuration
     resume: {
-        // Google Drive direct download link
+        // Google Drive direct download link - using correct format for PDF download
         url: 'https://drive.google.com/uc?export=download&id=13dkjIr7BUB8xPmnNPHzo17lqZCgi0FrV',
         filename: 'RachitShah_Resume.pdf'
     }
@@ -115,8 +115,14 @@ downloadResumeBtn.addEventListener('click', () => {
     // Use Google Drive direct download link
     const resumeUrl = CONFIG.resume.url;
     
-    // Open in new tab for download
-    window.open(resumeUrl, '_blank');
+    // Create a temporary anchor element to trigger download
+    const link = document.createElement('a');
+    link.href = resumeUrl;
+    link.download = CONFIG.resume.filename;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     
     // Show a confirmation message
     showNotification('Resume download started!', 'success');

@@ -9,8 +9,8 @@ const CONFIG = {
     
     // Resume Configuration
     resume: {
-        // Google Drive direct download link - using correct format for PDF download
-        url: 'https://drive.google.com/uc?export=download&id=13dkjIr7BUB8xPmnNPHzo17lqZCgi0FrV',
+        // Google Drive file viewer link (opens PDF in browser, user can download from there)
+        url: 'https://drive.google.com/file/d/1EyQWNiVD--Bs84ZAQb7ozd9BI6o9vJg6/view?usp=sharing',
         filename: 'RachitShah_Resume.pdf'
     }
 };
@@ -112,20 +112,14 @@ projectCards.forEach((card, index) => {
 const downloadResumeBtn = document.getElementById('downloadResume');
 
 downloadResumeBtn.addEventListener('click', () => {
-    // Use Google Drive direct download link
+    // Open Google Drive PDF viewer
     const resumeUrl = CONFIG.resume.url;
     
-    // Create a temporary anchor element to trigger download
-    const link = document.createElement('a');
-    link.href = resumeUrl;
-    link.download = CONFIG.resume.filename;
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Open in new tab - user can view and download from Google Drive viewer
+    window.open(resumeUrl, '_blank');
     
     // Show a confirmation message
-    showNotification('Resume download started!', 'success');
+    showNotification('Opening resume in new tab!', 'success');
 });
 
 // ===== CONTACT FORM - SALESFORCE INTEGRATION =====

@@ -9,8 +9,8 @@ const CONFIG = {
     
     // Resume Configuration
     resume: {
-        // Google Drive direct download link
-        url: 'https://drive.google.com/uc?export=download&id=1eim3frySCjg9OyBrpgxN4FCagv0aGwMJ',
+        // Google Docs link
+        url: 'https://docs.google.com/document/d/14KGupv6Ks5FNl1GVWvNygcP7kLQFYsuK/edit',
         filename: 'RachitShah_Resume.pdf'
     }
 };

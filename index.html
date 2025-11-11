@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rachit Shah - Salesforce Developer Portfolio</title>
+    <meta name="description" content="Rachit Shah - Professional Salesforce Developer with 2.5+ years of experience in Apex, LWC, and CRM solutions">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%237400b8;stop-opacity:1' /><stop offset='50%' style='stop-color:%235390d9;stop-opacity:1' /><stop offset='100%' style='stop-color:%2356cfe1;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>R</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">Rachit Shah</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Hi, I'm <span class="highlight">Rachit Shah</span></h1>
+                <h2 class="hero-subtitle"><span class="typing-text">Salesforce Developer</span></h2>
+                <p class="hero-description">
+                    Passionate Salesforce developer with over 2.5 years of industry experience, building 
+                    scalable CRM solutions and innovative applications on the Salesforce platform. Specialized in Apex, 
+                    Lightning Web Components, and seamless third-party integrations.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-box">
+                        <span class="stat-number">2.5+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Projects Completed</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Integrations Built</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Clients Served</span>
+                    </div>
+                </div>
+                
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <button id="downloadResume" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download Resume
+                    </button>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/RachitShah28" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/rachit-shah-200629224/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.salesforce.com/trailblazer/rachitshah" target="_blank" aria-label="Salesforce Trailblazer"><i class="fab fa-salesforce"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I'm a dedicated Salesforce developer with over 2.5 years of professional experience, 
+                        specializing in building robust and scalable CRM solutions. My journey began with a comprehensive 
+                        6-month training program, followed by 2+ years of hands-on development work delivering enterprise-grade 
+                        Salesforce solutions.
+                    </p>
+                    <p>
+                        Throughout my career, I've worked on diverse Salesforce projects ranging from custom Lightning Web 
+                        Components and complex automation flows to third-party integrations and data migration tools. I excel 
+                        at optimizing SOQL queries, implementing best practices, and mentoring junior developers.
+                    </p>
+                    <p>
+                        My expertise spans across Sales Cloud, Service Cloud, and custom application development. I'm passionate 
+                        about leveraging Salesforce's powerful platform to solve real business challenges and deliver exceptional 
+                        user experiences.
+                    </p>
+                </div>
+                <div class="skills">
+                    <h3>Technical Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fab fa-salesforce"></i>
+                            <span>Sales Cloud</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <span>Lightning Web Components</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-cogs"></i>
+                            <span>Apex</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Flow Builder</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-file-code"></i>
+                            <span>Visualforce</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Process Builder</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>REST API</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-plug"></i>
+                            <span>Third-Party Integration</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-sync"></i>
+                            <span>Workflow Automation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-group">
+                    <div class="company-header">
+                        <div class="company-logo">MV</div>
+                        <div class="company-info">
+                            <h3>MV Clouds</h3>
+                            <p class="total-duration">2 yrs 4 mos</p>
+                            <p class="company-location"><i class="fas fa-map-marker-alt"></i> On-site</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-items">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h3>Salesforce Developer</h3>
+                                <p class="position-type">Full-time</p>
+                                <p class="timeline-date">Feb 2024 - Present · 1 yr 10 mos</p>
+                                <ul class="timeline-description">
+                                    <li>Developed and maintained custom Salesforce applications using Apex, LWC, and Visualforce</li>
+                                    <li>Designed and implemented complex business logic and automation using Process Builder and Flow</li>
+                                    <li>Created reusable Lightning Web Components for enhanced user experience</li>
+                                    <li>Optimized SOQL queries and improved application performance by 40%</li>
+                                    <li>Collaborated with cross-functional teams to deliver scalable CRM solutions</li>
+                                    <li>Integrated Salesforce with third-party systems using REST/SOAP APIs</li>
+                                    <li>Mentored junior developers and conducted code reviews</li>
+                                </ul>
+                                <div class="timeline-tags">
+                                    <span class="tag">Apex</span>
+                                    <span class="tag">LWC</span>
+                                    <span class="tag">SOQL</span>
+                                    <span class="tag">Salesforce</span>
+                                    <span class="tag">Git</span>
+                                    <span class="tag">REST API</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h3>Salesforce Developer</h3>
+                                <p class="position-type">Trainee</p>
+                                <p class="timeline-date">Aug 2023 - Jan 2024 · 6 mos</p>
+                                <ul class="timeline-description">
+                                    <li>Completed comprehensive Salesforce training program covering Apex, LWC, and Salesforce fundamentals</li>
+                                    <li>Built hands-on projects to understand CRM architecture and best practices</li>
+                                    <li>Learned automation tools including Process Builder, Flow, and Workflow Rules</li>
+                                    <li>Gained expertise in SOQL, SOSL, and database management</li>
+                                </ul>
+                                <div class="timeline-tags">
+                                    <span class="tag">Training</span>
+                                    <span class="tag">Apex</span>
+                                    <span class="tag">LWC</span>
+                                    <span class="tag">SOQL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1: Real Estate Application -->
+                <div class="project-card">
+                    <h3>Real Estate Application</h3>
+                    <p>Developed a comprehensive Salesforce solution for a real estate platform with email scheduling, automated data syncing, dynamic record filters, and seamless Gmail/Outlook integration for enhanced communication and efficiency.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">LWC</span>
+                        <span class="tech-tag">Apex</span>
+                        <span class="tech-tag">Email Integration</span>
+                        <span class="tech-tag">Automation</span>
+                        <span class="tech-tag">Sales Cloud</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: WhatsApp Integration -->
+                <div class="project-card">
+                    <h3>WhatsApp Integration</h3>
+                    <p>Implemented WhatsApp Business API integration with Salesforce, creating a custom inbox for real-time messaging, automated templates, scheduled communications, and centralized conversation tracking for improved customer engagement.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">WhatsApp API</span>
+                        <span class="tech-tag">REST API</span>
+                        <span class="tech-tag">Custom Components</span>
+                        <span class="tech-tag">Process Automation</span>
+                        <span class="tech-tag">Integration</span>
+                    </div>
+                </div>
+
+                <!-- Project 3: Virtual Event Registration Site -->
+                <div class="project-card">
+                    <h3>Virtual Event Registration Site</h3>
+                    <p>Built a custom Salesforce site for virtual event registrations with Zoom and Google Calendar integration. Automated generation of meeting links, calendar invites, and confirmation emails for seamless event management.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Experience Cloud</span>
+                        <span class="tech-tag">Zoom API</span>
+                        <span class="tech-tag">Google Calendar API</span>
+                        <span class="tech-tag">Gmail Integration</span>
+                        <span class="tech-tag">Apex</span>
+                    </div>
+                </div>
+
+                <!-- Project 4: Sales Process Automation -->
+                <div class="project-card">
+                    <h3>Sales Cloud Solutions</h3>
+                    <p>Developed custom solutions across Sales Cloud to enhance sales processes, automate workflows using Flow and Process Builder, and streamline operations for improved business results and team efficiency.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Sales Cloud</span>
+                        <span class="tech-tag">Flow Builder</span>
+                        <span class="tech-tag">Process Builder</span>
+                        <span class="tech-tag">Workflow Rules</span>
+                        <span class="tech-tag">Apex</span>
+                    </div>
+                </div>
+
+                <!-- Project 5: Third-Party Email Integration -->
+                <div class="project-card">
+                    <h3>Email Services Integration</h3>
+                    <p>Implemented seamless third-party email integrations with Gmail and Outlook, enabling automated communication, data synchronization, and enhanced customer engagement directly from Salesforce.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Gmail API</span>
+                        <span class="tech-tag">Outlook API</span>
+                        <span class="tech-tag">REST Integration</span>
+                        <span class="tech-tag">Email Templates</span>
+                        <span class="tech-tag">Apex</span>
+                    </div>
+                </div>
+
+                <!-- Project 6: Custom Application Development -->
+                <div class="project-card">
+                    <h3>Custom Application Features</h3>
+                    <p>Architected and developed custom features and modules using Apex, LWC, Visualforce, and triggers to fulfill diverse client requirements and deliver tailored Salesforce solutions.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">LWC</span>
+                        <span class="tech-tag">Apex Triggers</span>
+                        <span class="tech-tag">Visualforce</span>
+                        <span class="tech-tag">Custom Objects</span>
+                        <span class="tech-tag">Lightning Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="contact-subtitle">Have a question or want to work together? Feel free to reach out!</p>
+            <div class="contact-content">
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-loading" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> Sending...
+                        </span>
+                    </button>
+                    <div id="formMessage" class="form-message"></div>
+                </form>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>rachitshah2809@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Ahmedabad, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-briefcase"></i>
+                        <div>
+                            <h4>Work Status</h4>
+                            <p>Open to opportunities</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+        <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>Rachit Shah</h3>
+                    <p>
+                        A passionate Salesforce developer with over 2.5 years of experience in building 
+                        scalable CRM solutions and innovative Salesforce applications. Specialized in 
+                        Lightning Web Components, Apex development, and cloud integration solutions.
+                    </p>
+                    <div class="footer-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">2.5+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Integrations Built</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
+                        <li><a href="#experience"><i class="fas fa-briefcase"></i> Experience</a></li>
+                        <li><a href="#projects"><i class="fas fa-folder-open"></i> Projects</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>rachitshah2809@gmail.com</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ahmedabad, Gujarat, India</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Available for freelance work</span>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect With Me</h4>
+                    <div class="footer-social-icons">
+                        <a href="https://github.com/RachitShah28" target="_blank" aria-label="GitHub" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/rachit-shah-200629224/" target="_blank" aria-label="LinkedIn" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://trailblazer.me/id/rachitshah" target="_blank" aria-label="Salesforce Trailblazer" title="Trailblazer">
+                            <i class="fab fa-salesforce"></i>
+                        </a>
+                        <a href="mailto:rachitshah2809@gmail.com" aria-label="Email" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rachit Shah. All rights reserved.</p>
+                <p>Built with <i class="fas fa-heart" style="color: #ff6b6b;"></i> using Salesforce colors palette | Designed & Developed by Rachit Shah</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

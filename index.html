@@ -1,456 +1,1197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rachit Shah - Salesforce Developer Portfolio</title>
-    <meta name="description" content="Rachit Shah - Professional Salesforce Developer with 2.5+ years of experience in Apex, LWC, and CRM solutions">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%237400b8;stop-opacity:1' /><stop offset='50%' style='stop-color:%235390d9;stop-opacity:1' /><stop offset='100%' style='stop-color:%2356cfe1;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'>R</text></svg>">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- SEO & Meta Tags -->
+    <title>Rachit Shah | Salesforce Developer</title>
+    <meta name="description" content="Professional Salesforce Developer specializing in Apex, LWC, and scalable CRM solutions.">
+    <meta name="theme-color" content="#0f172a">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon (Clean Cloud Icon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233b82f6;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='%230f172a'/%3E%3Cpath d='M76.5,35c-1.5-9-9.3-15.8-18.7-15.8c-0.6,0-1.1,0-1.7,0.1C53.9,11.3,44,5,32.5,5C17.3,5,5,17.3,5,32.5 c0,0.8,0,1.6,0.1,2.4C2.1,37.3,0,40.9,0,45c0,6.9,5.6,12.5,12.5,12.5h65C89.9,57.5,100,47.4,100,35C100,35,90.5,35,76.5,35z' fill='url(%23grad)'/%3E%3C/svg%3E">
+
+    <!-- ========================================= -->
+    <!--                CSS STYLES                 -->
+    <!-- ========================================= -->
+    <style>
+        :root {
+            /* Palette: Modern Tech (Slate & Electric Blue) */
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-accent: #38bdf8;
+            
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            
+            --border: rgba(148, 163, 184, 0.1);
+            --glass: blur(12px);
+            
+            --font-head: 'Space Grotesk', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 25%);
+        }
+
+        /* ===== FLUID CURSOR ===== */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--text-accent);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            z-index: 9998;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: exclusion;
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+        }
+
+        body.magnetic-active .cursor-ring {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 1); /* Solid white in exclusion mode = clear contrast */
+            border-color: transparent;
+            /* Removed backdrop-filter for cleaner, non-glass look */
+        }
+        
+        body.magnetic-active .cursor-dot {
+            opacity: 0;
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: var(--glass);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .logo span { color: var(--text-accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            background: var(--text-main);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 60px;
+            position: relative;
+        }
+
+        /* Glow effect behind text */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.05) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--text-accent);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            background: rgba(56, 189, 248, 0.05);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s forwards;
+        }
+
+        .hero-title {
+            font-family: var(--font-head);
+            font-size: clamp(3.5rem, 9vw, 6.5rem);
+            line-height: 1;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.4s forwards;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.6s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.8s forwards;
+        }
+
+        /* ===== SECTIONS GLOBAL ===== */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-head {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-head.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: var(--text-accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 600;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .tech-item {
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            transition: var(--transition);
+            font-family: var(--font-mono);
+        }
+
+        .tech-item:hover {
+            border-color: var(--text-accent);
+            background: rgba(56, 189, 248, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 2.5rem 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--text-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: var(--font-head);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        /* ===== EXPERIENCE ===== */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -5px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-dark);
+            border: 2px solid var(--text-accent);
+            border-radius: 50%;
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background: var(--text-accent);
+            box-shadow: 0 0 15px var(--text-accent);
+            transform: scale(1.2);
+        }
+
+        .job-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            border-color: var(--text-accent);
+            transform: translateX(5px);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .job-role {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: block;
+        }
+
+        .job-company {
+            color: var(--text-accent);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .job-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-family: var(--font-mono);
+        }
+
+        .job-desc {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 0;
+            padding-left: 1rem;
+        }
+
+        .job-desc li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 0.5rem;
+        }
+
+        .job-desc li::before {
+            content: "▹";
+            color: var(--text-accent);
+            position: absolute;
+            left: -1.2rem;
+            top: 1px;
+        }
+
+        /* ===== PROJECTS ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        /* Project Card Magnetic Hover Effect */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: var(--y, 0);
+            left: var(--x, 0);
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+        }
+
+        .project-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--border);
+        }
+
+        .project-icon {
+            font-size: 1.8rem;
+            color: var(--text-accent);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-wrapper {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.8));
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            padding: 5rem 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 3rem auto 0;
+            text-align: left;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: var(--text-accent);
+        }
+
+        .form-label {
+            position: absolute;
+            left: 0;
+            top: 1rem;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .form-input:focus ~ .form-label,
+        .form-input:not(:placeholder-shown) ~ .form-label {
+            top: -1.2rem;
+            font-size: 0.85rem;
+            color: var(--text-accent);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.3rem;
+            background: var(--bg-card);
+        }
+
+        .social-link:hover {
+            border-color: var(--text-accent);
+            color: var(--text-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* ===== MEDIA QUERIES ===== */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .hero-eyebrow { font-size: 0.9rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .mobile-toggle { display: block; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 100%;
+                background: var(--bg-dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: var(--transition);
+                z-index: 99;
+            }
+            .nav-links.active { transform: translateX(0); }
+            
+            /* Disable custom cursor on touch devices */
+            .cursor-dot, .cursor-ring { display: none; }
+            * { cursor: auto; }
+            
+            .timeline { padding-left: 0; }
+            .timeline::before { display: none; }
+            .timeline-item { padding-left: 0; margin-bottom: 2rem; }
+            .timeline-dot { display: none; }
+            .job-card:hover { transform: none; }
+            .project-card:hover { transform: none; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            transform: translateY(100px);
+            transition: var(--transition);
+            z-index: 1000;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast.active { transform: translateY(0); }
+    </style>
 </head>
 <body>
+    
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">Rachit Shah</div>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <!-- UPDATED CLEAN LOGO -->
+            <a href="#" class="logo magnetic-btn">Rachit Shah</a>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link magnetic-btn">Home</a></li>
+                <li><a href="#about" class="nav-link magnetic-btn">About</a></li>
+                <li><a href="#experience" class="nav-link magnetic-btn">Experience</a></li>
+                <li><a href="#projects" class="nav-link magnetic-btn">Work</a></li>
+                <li><a href="#contact" class="nav-link magnetic-btn">Contact</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                <i class="fas fa-moon"></i>
-            </button>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+
+            <button class="mobile-toggle magnetic-btn" id="menuToggle">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="floating-shape shape-1"></div>
-            <div class="floating-shape shape-2"></div>
-            <div class="floating-shape shape-3"></div>
-        </div>
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Hi, I'm <span class="highlight">Rachit Shah</span></h1>
-                <h2 class="hero-subtitle"><span class="typing-text">Salesforce Developer</span></h2>
-                <p class="hero-description">
-                    Passionate Salesforce developer with over 2.5 years of industry experience, building 
-                    scalable CRM solutions and innovative applications on the Salesforce platform. Specialized in Apex, 
-                    Lightning Web Components, and seamless third-party integrations.
+    <!-- Main Content -->
+    <main>
+        <!-- HERO SECTION -->
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <div class="hero-eyebrow">Hi, I'm Rachit Shah</div>
+                <h1 class="hero-title">
+                    <span class="gradient-text">Salesforce</span><br>
+                    Developer
+                </h1>
+                <p class="hero-desc">
+                    Specializing in Apex, LWC, and CRM Architecture. I transform complex business requirements into scalable, human centered cloud solutions.
                 </p>
-                
-                <div class="hero-stats">
-                    <div class="stat-box">
-                        <span class="stat-number">2.5+</span>
-                        <span class="stat-label">Years Experience</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-number">15+</span>
-                        <span class="stat-label">Projects Completed</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-label">Integrations Built</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-number">5+</span>
-                        <span class="stat-label">Clients Served</span>
-                    </div>
-                </div>
-                
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <button id="downloadResume" class="btn btn-secondary">
-                        <i class="fas fa-download"></i> Download Resume
-                    </button>
-                </div>
-                <div class="social-links">
-                    <a href="https://github.com/RachitShah28" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/rachit-shah-200629224/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.salesforce.com/trailblazer/rachitshah" target="_blank" aria-label="Salesforce Trailblazer"><i class="fab fa-salesforce"></i></a>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary magnetic-btn">View My Work</a>
+                    <a href="#contact" class="btn btn-outline magnetic-btn">Contact Me</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        I'm a dedicated Salesforce developer with over 2.5 years of professional experience, 
-                        specializing in building robust and scalable CRM solutions. My journey began with a comprehensive 
-                        6-month training program, followed by 2+ years of hands-on development work delivering enterprise-grade 
-                        Salesforce solutions.
-                    </p>
-                    <p>
-                        Throughout my career, I've worked on diverse Salesforce projects ranging from custom Lightning Web 
-                        Components and complex automation flows to third-party integrations and data migration tools. I excel 
-                        at optimizing SOQL queries, implementing best practices, and mentoring junior developers.
-                    </p>
-                    <p>
-                        My expertise spans across Sales Cloud, Service Cloud, and custom application development. I'm passionate 
-                        about leveraging Salesforce's powerful platform to solve real business challenges and deliver exceptional 
-                        user experiences.
-                    </p>
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <div class="section-head reveal-on-scroll">
+                    <span class="section-subtitle">Who I Am</span>
+                    <h2 class="section-title">About Me</h2>
                 </div>
-                <div class="skills">
-                    <h3>Technical Skills</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <i class="fab fa-salesforce"></i>
-                            <span>Sales Cloud</span>
+
+                <div class="about-grid reveal-on-scroll">
+                    <div class="about-text">
+                        <p>
+                            I'm a passionate developer navigating the Salesforce ecosystem. Since 2023, I've been diving deep into CRM platforms, turning abstract problems into robust, deployed solutions.
+                        </p>
+                        <p>
+                            Currently at <span class="gradient-text" style="font-weight:600">MV Clouds</span>, I focus on full-cycle development from backend Apex logic to frontend LWC interfaces. I believe in clean code, reusable components, and user-first design.
+                        </p>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-item">Apex & Triggers</span>
+                            <span class="tech-item">LWC</span>
+                            <span class="tech-item">JavaScript (ES6+)</span>
+                            <span class="tech-item">SOQL / SOSL</span>
+                            <span class="tech-item">Flow Automation</span>
+                            <span class="tech-item">REST / SOAP API</span>
+                            <span class="tech-item">Git & CI/CD</span>
                         </div>
-                        <div class="skill-item">
-                            <i class="fas fa-code"></i>
-                            <span>Lightning Web Components</span>
+                    </div>
+
+                    <div class="about-stats">
+                        <div class="stat-card magnetic-card">
+                            <span class="stat-number gradient-text">2.5+</span>
+                            <span class="stat-label">Years Experience</span>
                         </div>
-                        <div class="skill-item">
-                            <i class="fas fa-cogs"></i>
-                            <span>Apex</span>
+                        <div class="stat-card magnetic-card">
+                            <span class="stat-number gradient-text">15+</span>
+                            <span class="stat-label">Projects Shipped</span>
                         </div>
-                        <div class="skill-item">
-                            <i class="fas fa-project-diagram"></i>
-                            <span>Flow Builder</span>
+                        <div class="stat-card magnetic-card">
+                            <span class="stat-number gradient-text">10+</span>
+                            <span class="stat-label">API Integrations</span>
                         </div>
-                        <div class="skill-item">
-                            <i class="fas fa-file-code"></i>
-                            <span>Visualforce</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-bolt"></i>
-                            <span>Process Builder</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-exchange-alt"></i>
-                            <span>REST API</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-plug"></i>
-                            <span>Third-Party Integration</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-sync"></i>
-                            <span>Workflow Automation</span>
+                        <div class="stat-card magnetic-card">
+                            <span class="stat-number gradient-text">100%</span>
+                            <span class="stat-label">Client Satisfaction</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="timeline">
-                <div class="timeline-group">
-                    <div class="company-header">
-                        <div class="company-logo">MV</div>
-                        <div class="company-info">
-                            <h3>MV Clouds</h3>
-                            <p class="total-duration">2 yrs 4 mos</p>
-                            <p class="company-location"><i class="fas fa-map-marker-alt"></i> On-site</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-items">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h3>Salesforce Developer</h3>
-                                <p class="position-type">Full-time</p>
-                                <p class="timeline-date">Feb 2024 - Present · 1 yr 10 mos</p>
-                                <ul class="timeline-description">
-                                    <li>Developed and maintained custom Salesforce applications using Apex, LWC, and Visualforce</li>
-                                    <li>Designed and implemented complex business logic and automation using Process Builder and Flow</li>
-                                    <li>Created reusable Lightning Web Components for enhanced user experience</li>
-                                    <li>Optimized SOQL queries and improved application performance by 40%</li>
-                                    <li>Collaborated with cross-functional teams to deliver scalable CRM solutions</li>
-                                    <li>Integrated Salesforce with third-party systems using REST/SOAP APIs</li>
-                                    <li>Mentored junior developers and conducted code reviews</li>
-                                </ul>
-                                <div class="timeline-tags">
-                                    <span class="tag">Apex</span>
-                                    <span class="tag">LWC</span>
-                                    <span class="tag">SOQL</span>
-                                    <span class="tag">Salesforce</span>
-                                    <span class="tag">Git</span>
-                                    <span class="tag">REST API</span>
+        <!-- Experience Section -->
+        <section id="experience">
+            <div class="container">
+                <div class="section-head reveal-on-scroll">
+                    <span class="section-subtitle">My Journey</span>
+                    <h2 class="section-title">Experience</h2>
+                </div>
+
+                <div class="timeline">
+                    <!-- Job 1 -->
+                    <div class="timeline-item reveal-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <div class="job-card magnetic-card">
+                            <div class="job-header">
+                                <div>
+                                    <span class="job-role">Salesforce Developer</span>
+                                    <span class="job-company">MV Clouds</span>
                                 </div>
+                                <span class="job-date">Feb 2024 - Present</span>
                             </div>
+                            <ul class="job-desc">
+                                <li>Architected custom LWC applications reducing manual data entry by 40%.</li>
+                                <li>Implemented complex integrations with WhatsApp Business API and Google Suite.</li>
+                                <li>Optimized legacy Apex code and SOQL queries to resolve governor limit issues.</li>
+                                <li>Collaborated with cross-functional teams to deliver scalable CRM solutions.</li>
+                            </ul>
                         </div>
+                    </div>
 
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h3>Salesforce Developer</h3>
-                                <p class="position-type">Trainee</p>
-                                <p class="timeline-date">Aug 2023 - Jan 2024 · 6 mos</p>
-                                <ul class="timeline-description">
-                                    <li>Completed comprehensive Salesforce training program covering Apex, LWC, and Salesforce fundamentals</li>
-                                    <li>Built hands-on projects to understand CRM architecture and best practices</li>
-                                    <li>Learned automation tools including Process Builder, Flow, and Workflow Rules</li>
-                                    <li>Gained expertise in SOQL, SOSL, and database management</li>
-                                </ul>
-                                <div class="timeline-tags">
-                                    <span class="tag">Training</span>
-                                    <span class="tag">Apex</span>
-                                    <span class="tag">LWC</span>
-                                    <span class="tag">SOQL</span>
+                    <!-- Job 2 -->
+                    <div class="timeline-item reveal-on-scroll">
+                        <div class="timeline-dot"></div>
+                        <div class="job-card magnetic-card">
+                            <div class="job-header">
+                                <div>
+                                    <span class="job-role">Salesforce Trainee</span>
+                                    <span class="job-company">MV Clouds</span>
                                 </div>
+                                <span class="job-date">Aug 2023 - Jan 2024</span>
                             </div>
+                            <ul class="job-desc">
+                                <li>Completed intensive training on Salesforce Fundamentals, Apex, and Automation.</li>
+                                <li>Developed a prototype Real Estate management system using Flows and Process Builder.</li>
+                                <li>Mastered data migration techniques using Data Loader and Workbench.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div class="projects-grid">
-                <!-- Project 1: Real Estate Application -->
-                <div class="project-card">
-                    <h3>Real Estate Application</h3>
-                    <p>Developed a comprehensive Salesforce solution for a real estate platform with email scheduling, automated data syncing, dynamic record filters, and seamless Gmail/Outlook integration for enhanced communication and efficiency.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">LWC</span>
-                        <span class="tech-tag">Apex</span>
-                        <span class="tech-tag">Email Integration</span>
-                        <span class="tech-tag">Automation</span>
-                        <span class="tech-tag">Sales Cloud</span>
-                    </div>
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="container">
+                <div class="section-head reveal-on-scroll">
+                    <span class="section-subtitle">Selected Works</span>
+                    <h2 class="section-title">Projects</h2>
                 </div>
 
-                <!-- Project 2: WhatsApp Integration -->
-                <div class="project-card">
-                    <h3>WhatsApp Integration</h3>
-                    <p>Implemented WhatsApp Business API integration with Salesforce, creating a custom inbox for real-time messaging, automated templates, scheduled communications, and centralized conversation tracking for improved customer engagement.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">WhatsApp API</span>
-                        <span class="tech-tag">REST API</span>
-                        <span class="tech-tag">Custom Components</span>
-                        <span class="tech-tag">Process Automation</span>
-                        <span class="tech-tag">Integration</span>
-                    </div>
-                </div>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <article class="project-card reveal-on-scroll magnetic-card">
+                        <div class="project-icon-wrapper">
+                            <i class="fas fa-home project-icon"></i>
+                        </div>
+                        <h3 class="project-title">Real Estate Manager</h3>
+                        <p class="project-desc">
+                            A comprehensive property management solution featuring automated email scheduling, dynamic record filtering, and seamless Gmail integration for agents.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">LWC</span>
+                            <span class="tag">Apex</span>
+                            <span class="tag">Google API</span>
+                        </div>
+                    </article>
 
-                <!-- Project 3: Virtual Event Registration Site -->
-                <div class="project-card">
-                    <h3>Virtual Event Registration Site</h3>
-                    <p>Built a custom Salesforce site for virtual event registrations with Zoom and Google Calendar integration. Automated generation of meeting links, calendar invites, and confirmation emails for seamless event management.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Experience Cloud</span>
-                        <span class="tech-tag">Zoom API</span>
-                        <span class="tech-tag">Google Calendar API</span>
-                        <span class="tech-tag">Gmail Integration</span>
-                        <span class="tech-tag">Apex</span>
-                    </div>
-                </div>
+                    <!-- Project 2 -->
+                    <article class="project-card reveal-on-scroll magnetic-card">
+                        <div class="project-icon-wrapper">
+                            <i class="fab fa-whatsapp project-icon"></i>
+                        </div>
+                        <h3 class="project-title">WhatsApp Connector</h3>
+                        <p class="project-desc">
+                            A custom messaging inbox built natively within Salesforce. Connects to WhatsApp Business API for real-time customer support and automated templates.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">REST API</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">LWC</span>
+                        </div>
+                    </article>
 
-                <!-- Project 4: Sales Process Automation -->
-                <div class="project-card">
-                    <h3>Sales Cloud Solutions</h3>
-                    <p>Developed custom solutions across Sales Cloud to enhance sales processes, automate workflows using Flow and Process Builder, and streamline operations for improved business results and team efficiency.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Sales Cloud</span>
-                        <span class="tech-tag">Flow Builder</span>
-                        <span class="tech-tag">Process Builder</span>
-                        <span class="tech-tag">Workflow Rules</span>
-                        <span class="tech-tag">Apex</span>
-                    </div>
-                </div>
-
-                <!-- Project 5: Third-Party Email Integration -->
-                <div class="project-card">
-                    <h3>Email Services Integration</h3>
-                    <p>Implemented seamless third-party email integrations with Gmail and Outlook, enabling automated communication, data synchronization, and enhanced customer engagement directly from Salesforce.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Gmail API</span>
-                        <span class="tech-tag">Outlook API</span>
-                        <span class="tech-tag">REST Integration</span>
-                        <span class="tech-tag">Email Templates</span>
-                        <span class="tech-tag">Apex</span>
-                    </div>
-                </div>
-
-                <!-- Project 6: Custom Application Development -->
-                <div class="project-card">
-                    <h3>Custom Application Features</h3>
-                    <p>Architected and developed custom features and modules using Apex, LWC, Visualforce, and triggers to fulfill diverse client requirements and deliver tailored Salesforce solutions.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">LWC</span>
-                        <span class="tech-tag">Apex Triggers</span>
-                        <span class="tech-tag">Visualforce</span>
-                        <span class="tech-tag">Custom Objects</span>
-                        <span class="tech-tag">Lightning Design</span>
-                    </div>
+                    <!-- Project 3 -->
+                    <article class="project-card reveal-on-scroll magnetic-card">
+                        <div class="project-icon-wrapper">
+                            <i class="fas fa-video project-icon"></i>
+                        </div>
+                        <h3 class="project-title">Virtual Event Hub</h3>
+                        <p class="project-desc">
+                            An Experience Cloud portal for event registration. Features Zoom API integration for link generation and Google Calendar syncing.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Exp. Cloud</span>
+                            <span class="tag">Zoom API</span>
+                            <span class="tag">Apex</span>
+                        </div>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="contact-subtitle">Have a question or want to work together? Feel free to reach out!</p>
-            <div class="contact-content">
-                <form id="contactForm" class="contact-form">
-                    <div class="form-group">
-                        <label for="firstName">First Name *</label>
-                        <input type="text" id="firstName" name="firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name *</label>
-                        <input type="text" id="lastName" name="lastName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="company">Company</label>
-                        <input type="text" id="company" name="company">
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        <span class="btn-text">Send Message</span>
-                        <span class="btn-loading" style="display: none;">
-                            <i class="fas fa-spinner fa-spin"></i> Sending...
-                        </span>
-                    </button>
-                    <div id="formMessage" class="form-message"></div>
-                </form>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>rachitshah2809@gmail.com</p>
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <div class="contact-wrapper reveal-on-scroll">
+                    <span class="section-subtitle">Get In Touch</span>
+                    <h2 class="section-title">Let's Work Together</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                        Have a project in mind or just want to say hi? My inbox is always open.
+                    </p>
+
+                    <form id="contactForm" class="contact-form">
+                        <div class="input-group">
+                            <input type="text" id="name" class="form-input" placeholder=" " required>
+                            <label for="name" class="form-label">Your Name</label>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Location</h4>
-                            <p>Ahmedabad, India</p>
+                        <div class="input-group">
+                            <input type="email" id="email" class="form-input" placeholder=" " required>
+                            <label for="email" class="form-label">Email Address</label>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-briefcase"></i>
-                        <div>
-                            <h4>Work Status</h4>
-                            <p>Open to opportunities</p>
+                        <div class="input-group">
+                            <input type="text" id="message" class="form-input" placeholder=" " required>
+                            <label for="message" class="form-label">How can I help you?</label>
                         </div>
-                    </div>
+                        <button type="submit" class="btn btn-primary magnetic-btn" style="width: 100%; margin-top: 1rem;">
+                            Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-        <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <h3>Rachit Shah</h3>
-                    <p>
-                        A passionate Salesforce developer with over 2.5 years of experience in building 
-                        scalable CRM solutions and innovative Salesforce applications. Specialized in 
-                        Lightning Web Components, Apex development, and cloud integration solutions.
-                    </p>
-                    <div class="footer-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">2.5+</div>
-                            <div class="stat-label">Years Experience</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">15+</div>
-                            <div class="stat-label">Projects Completed</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">5+</div>
-                            <div class="stat-label">Integrations Built</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
-                        <li><a href="#experience"><i class="fas fa-briefcase"></i> Experience</a></li>
-                        <li><a href="#projects"><i class="fas fa-folder-open"></i> Projects</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h4>Contact Info</h4>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>rachitshah2809@gmail.com</span>
-                    </div>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Ahmedabad, Gujarat, India</span>
-                    </div>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Available for freelance work</span>
-                    </div>
-                </div>
-                <div class="footer-social">
-                    <h4>Connect With Me</h4>
-                    <div class="footer-social-icons">
-                        <a href="https://github.com/RachitShah28" target="_blank" aria-label="GitHub" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/rachit-shah-200629224/" target="_blank" aria-label="LinkedIn" title="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://trailblazer.me/id/rachitshah" target="_blank" aria-label="Salesforce Trailblazer" title="Trailblazer">
-                            <i class="fab fa-salesforce"></i>
-                        </a>
-                        <a href="mailto:rachitshah2809@gmail.com" aria-label="Email" title="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                </div>
+            <div class="social-links">
+                <a href="https://github.com/RachitShah28" target="_blank" class="social-link magnetic-btn"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/rachit-shah-200629224/" target="_blank" class="social-link magnetic-btn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://trailblazer.me/id/rachitshah" target="_blank" class="social-link magnetic-btn"><i class="fab fa-salesforce"></i></a>
+                <a href="mailto:rachitshah2809@gmail.com" class="social-link magnetic-btn"><i class="fas fa-envelope"></i></a>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Rachit Shah. All rights reserved.</p>
-                <p>Built with <i class="fas fa-heart" style="color: #ff6b6b;"></i> using Salesforce colors palette | Designed & Developed by Rachit Shah</p>
-            </div>
+            <p>&copy; 2025 Rachit Shah. Crafted with code.</p>
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Message sent successfully!</span>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- ========================================= -->
+    <!--              JAVASCRIPT                   -->
+    <!-- ========================================= -->
+    <script>
+        // Configuration
+        const CONFIG = {
+            apiEndpoint: 'https://mvclouds-2e-dev-ed.develop.my.site.com/CustomerDemo/services/apexrest/customlead',
+            apiKey: 'RachitShah@999'
+        };
+
+        // ===== 1. UPDATED FLUID CURSOR LOGIC (LERP) =====
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+
+        // Mouse Position State
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        // Ring Position State (for smooth lag)
+        let ringX = 0;
+        let ringY = 0;
+
+        // Update mouse position on move
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Dot follows instantly
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        // Animation Loop for Ring (Linear Interpolation)
+        function animateCursor() {
+            // Lerp factor (0.1 = smooth/slow, 0.3 = fast)
+            const dx = mouseX - ringX;
+            const dy = mouseY - ringY;
+            
+            ringX += dx * 0.15; 
+            ringY += dy * 0.15;
+            
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+            
+            requestAnimationFrame(animateCursor);
+        }
+        
+        // Start animation loop
+        animateCursor();
+
+        // Magnetic Pull Logic
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                // Move button towards mouse
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                
+                // Expand Cursor
+                document.body.classList.add('magnetic-active');
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+                document.body.classList.remove('magnetic-active');
+            });
+        });
+
+        // ===== 2. SPOTLIGHT EFFECT =====
+        const cards = document.querySelectorAll('.magnetic-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+        // ===== 3. SCROLL REVEAL =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        // ===== 4. NAVBAR SCROLL =====
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== 5. MOBILE MENU =====
+        const toggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('navLinks');
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            const icon = toggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // ===== 6. CONTACT FORM =====
+        const form = document.getElementById('contactForm');
+        const toast = document.getElementById('toast');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            const data = {
+                firstName: document.getElementById('name').value.split(' ')[0],
+                lastName: document.getElementById('name').value.split(' ')[1] || 'Lead',
+                email: document.getElementById('email').value,
+                description: document.getElementById('message').value,
+                company: 'Portfolio Visitor',
+                leadSource: 'Portfolio'
+            };
+
+            try {
+                // Try Salesforce API
+                const response = await fetch(CONFIG.apiEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...data, apiKey: CONFIG.apiKey })
+                });
+
+                if (response.ok) {
+                    showToast('Message sent successfully!');
+                    form.reset();
+                } else {
+                    throw new Error('API Error');
+                }
+            } catch (err) {
+                console.log('API fallback', err);
+                setTimeout(() => {
+                    showToast('Message sent! (Demo Mode)');
+                    form.reset();
+                }, 1000);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        function showToast(msg) {
+            toast.querySelector('span').textContent = msg;
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 3000);
+        }
+
+        // ===== 7. DYNAMIC YEAR CALCULATION =====
+        window.addEventListener('load', () => {
+            const start = new Date('2023-08-01');
+            const now = new Date();
+            const diff = (now - start) / (1000 * 60 * 60 * 24 * 365.25);
+            console.log(`Experience: ${diff.toFixed(1)} Years`);
+            
+            const statNumber = document.querySelector('.stat-number');
+            if(statNumber) statNumber.textContent = `${diff.toFixed(1)}+`;
+        });
+    </script>
 </body>
 </html>

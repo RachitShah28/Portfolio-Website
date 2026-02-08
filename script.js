@@ -218,3 +218,136 @@ function calculateExperience() {
 window.addEventListener('load', () => {
     calculateExperience();
 });
+// ===== 10. PARTICLE BACKGROUND EFFECT =====
+(function() {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'particle-canvas';
+    // Add to body, but ensure it stays behind content via CSS
+    document.body.prepend(canvas);
+    
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    
+    // Particles config
+    const particles = [];
+    const particleCount = 60; // Adjust density
+    const colors = ['#3b82f6', '#8b5cf6', '#ef4444', '#f59e0b', '#10b981']; // Blue, Purple, Red, Orange, Green
+    
+    // Mouse interaction
+    let mouse = {
+        x: null,
+        y: null,
+        radius: 150
+    }
+
+    window.addEventListener('mousemove', function(event) {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        
+        reset() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            // Antigravity: Always moving up (negative y velocity)
+            this.vx = (Math.random() - 0.5) * 0.2; // Slight horizontal drift
+            this.vy = -(Math.random() * 0.5 + 0.2); // Upward movement
+            this.size = Math.random() * 2 + 1; 
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.opacity = Math.random() * 0.5 + 0.1;
+            
+            // Store original speed to return to it
+            this.baseVx = this.vx;
+            this.baseVy = this.vy;
+        }
+        
+        update() {
+            // Mouse interaction (Repel)
+            if (mouse.x != null) {
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < mouse.radius) {
+                    const forceDirectionX = dx / distance;
+                    const forceDirectionY = dy / distance;
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    
+                    // Push away
+                    const directionX = forceDirectionX * force * 0.5;
+                    const directionY = forceDirectionY * force * 0.5;
+
+                    this.vx -= directionX;
+                    this.vy -= directionY;
+                }
+            }
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Return to natural antigravity flow
+            // Interpolate current velocity towards base velocity
+            this.vx = this.vx * 0.98 + this.baseVx * 0.02;
+            this.vy = this.vy * 0.98 + this.baseVy * 0.02;
+
+            // Wrap edges
+            // If it goes off the top, respawn at bottom
+            if (this.y < -10) {
+                this.y = height + 10;
+                this.x = Math.random() * width;
+            }
+            // If extended interaction pushes it down off bottom
+            if (this.y > height + 10) {
+                this.y = -10;
+            }
+            // Horizontal wrapping
+            if (this.x < -10) this.x = width + 10;
+            if (this.x > width + 10) this.x = -10;
+        }
+        
+        draw() {
+            ctx.globalAlpha = this.opacity;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    
+    function init() {
+        resize();
+        window.addEventListener('resize', resize);
+        // Clear old particles if refetched
+        particles.length = 0;
+        
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+        animate();
+    }
+    
+    function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animate);
+    }
+    
+    // Initialize when DOM is ready (script is defer/bottom usually, but safe to call)
+    init();
+})();
+
+

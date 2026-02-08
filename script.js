@@ -1,507 +1,191 @@
-// ===== CONFIGURATION - EDIT THESE VALUES =====
+// ===== CONFIGURATION =====
 const CONFIG = {
-    // Salesforce Configuration
     salesforce: {
-        // Custom REST API endpoint
         apiEndpoint: 'https://mvclouds-2e-dev-ed.develop.my.site.com/CustomerDemo/services/apexrest/customlead',
-        apiKey: 'RachitShah@999' // Your API key for authentication
+        apiKey: 'RachitShah@999'
     },
-    
-    // Resume Configuration
     resume: {
-        // Google Drive file viewer link (opens PDF in browser, user can download from there)
         url: 'https://drive.google.com/file/d/1EyQWNiVD--Bs84ZAQb7ozd9BI6o9vJg6/view?usp=sharing',
         filename: 'RachitShah_Resume.pdf'
     }
 };
 
-// ===== THEME TOGGLE =====
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
+// ===== MOBILE MENU =====
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const navLinks = document.getElementById('navLinks');
 
-// Check for saved theme preference or default to light mode
-const currentTheme = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', currentTheme);
-updateThemeIcon(currentTheme);
-
-themeToggle.addEventListener('click', () => {
-    const theme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    html.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    updateThemeIcon(theme);
-});
-
-function updateThemeIcon(theme) {
-    const icon = themeToggle.querySelector('i');
-    // Remove all classes first
-    icon.className = '';
-    
-    if (theme === 'light') {
-        // Light mode - show moon
-        icon.className = 'fas fa-moon';
-    } else {
-        // Dark mode - show sun
-        icon.className = 'fas fa-sun';
-    }
-    
-    // Force a repaint
-    icon.offsetHeight;
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
 }
 
-// ===== MOBILE MENU =====
-const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-const navMenu = document.querySelector('.nav-menu');
-
-mobileMenuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    const icon = mobileMenuToggle.querySelector('i');
-    icon.className = navMenu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-menu a').forEach(link => {
+// Close mobile menu when clicking a link
+document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        const icon = mobileMenuToggle.querySelector('i');
-        icon.className = 'fas fa-bars';
-    });
-});
-
-// ===== SMOOTH SCROLL WITH OFFSET =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offset = 80; // Height of fixed navbar
-            const targetPosition = target.offsetTop - offset;
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
+        if (navLinks && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
         }
     });
 });
 
-// ===== NAVBAR SCROLL EFFECT =====
-const navbar = document.querySelector('.navbar');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+// ===== ACTIVE LINK HIGHLIGHTING =====
+const currentPath = window.location.pathname;
+document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.href.includes(currentPath) && currentPath !== '/') {
+        link.classList.add('active');
+    } else if (currentPath === '/' || currentPath.endsWith('index.html')) {
+        if (link.getAttribute('href') === 'index.html') {
+            link.classList.add('active');
+        }
     }
-    
-    lastScroll = currentScroll;
 });
 
-// ===== PROJECTS ANIMATION =====
-// Projects filter removed - all projects are now displayed together
-const projectCards = document.querySelectorAll('.project-card');
-projectCards.forEach((card, index) => {
-    setTimeout(() => {
-        card.style.animation = 'fadeInUp 0.5s ease';
-    }, index * 100);
-});
-
-// ===== RESUME DOWNLOAD =====
-const downloadResumeBtn = document.getElementById('downloadResume');
-
-downloadResumeBtn.addEventListener('click', () => {
-    // Open Google Drive PDF viewer
-    const resumeUrl = CONFIG.resume.url;
-    
-    // Open in new tab - user can view and download from Google Drive viewer
-    window.open(resumeUrl, '_blank');
-    
-    // Show a confirmation message
-    showNotification('Opening resume in new tab!', 'success');
-});
-
-// ===== CONTACT FORM - SALESFORCE INTEGRATION =====
+// ===== CONTACT FORM HANDLING =====
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Show loading state
-    const submitBtn = contactForm.querySelector('.btn-submit');
-    const btnText = submitBtn.querySelector('.btn-text');
-    const btnLoading = submitBtn.querySelector('.btn-loading');
-    
-    submitBtn.disabled = true;
-    btnText.style.display = 'none';
-    btnLoading.style.display = 'inline-block';
-    formMessage.style.display = 'none';
-    
-    // Get form data
-    const formData = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        company: document.getElementById('company').value,
-        message: document.getElementById('message').value
-    };
-    
-    try {
-        // Call your custom Salesforce REST API
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // Update footer about text
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'inline-block';
+        formMessage.style.display = 'none';
+        
+        // Get values
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const message = document.getElementById('message').value;
+        
+        // Split name
+        const nameParts = fullName.split(' ');
+        const firstName = nameParts[0];
+        const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : 'Not Specified';
+        
         const requestBody = {
             apiKey: CONFIG.salesforce.apiKey,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            phone: formData.phone || '',
-            company: formData.company || 'Not Specified', // Default value if empty
-            leadSource: 'Website',
-            description: formData.message
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone,
+            company: 'Website Inquiry',
+            leadSource: 'Portfolio Website',
+            description: message
         };
-        
-        // Debug: Log the request details
-        console.log('🔵 Sending request to:', CONFIG.salesforce.apiEndpoint);
-        console.log('🔵 Request payload:', JSON.stringify(requestBody, null, 2));
-        
-        const response = await fetch(CONFIG.salesforce.apiEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestBody)
-        });
-        
-        // Debug: Log response details
-        console.log('🔵 Response status:', response.status);
-        console.log('🔵 Response headers:', [...response.headers.entries()]);
-        
-        const responseText = await response.text();
-        console.log('🔵 Response body:', responseText);
-        
-        if (response.status === 201) {
-            // Success - Lead created
-            console.log('✅ Lead created successfully!');
-            showFormMessage('✅ Thank you for reaching out! Your message has been received. I\'ll get back to you soon.', 'success');
-            contactForm.reset();
-            
-            // Show success notification
-            showNotification('Lead created successfully in Salesforce!', 'success');
-        } else if (response.status === 401) {
-            // Unauthorized - API Key issue
-            console.error('❌ Authentication failed!');
-            console.error('Expected API Key:', CONFIG.salesforce.apiKey);
-            console.error('Server response:', responseText);
-            showFormMessage(`⚠️ Authentication failed: ${responseText}\nPlease contact me directly via email.`, 'error');
-        } else if (response.status === 400) {
-            // Bad Request - Missing required fields
-            console.error('❌ Validation error!');
-            console.error('Server response:', responseText);
-            showFormMessage(`⚠️ Validation error: ${responseText}`, 'error');
-        } else if (response.status === 500) {
-            // Server error
-            console.error('❌ Server error!');
-            console.error('Server response:', responseText);
-            showFormMessage(`❌ Server error: ${responseText}`, 'error');
-        } else {
-            // Other errors
-            console.error('❌ Unexpected error!');
-            console.error('Status:', response.status);
-            console.error('Response:', responseText);
-            showFormMessage(`❌ Error (${response.status}): ${responseText}`, 'error');
-        }
-        
-    } catch (error) {
-        console.error('❌ Network or fetch error:', error);
-        console.error('Error details:', {
-            name: error.name,
-            message: error.message,
-            stack: error.stack
-        });
-        
-        // Check if it's a CORS error
-        if (error.message.includes('Failed to fetch') || error.name === 'TypeError') {
-            showFormMessage('❌ Network error! This might be a CORS issue. Check console for details.\n\nPossible fixes:\n1. Enable CORS in Salesforce Site settings\n2. Check if the community URL is correct\n3. Verify the API endpoint is accessible', 'error');
-            console.error('💡 CORS Fix: Go to Salesforce Setup > Sites > Your Site > Public Access Settings > CORS');
-        } else {
-            showFormMessage(`❌ Error: ${error.message}\n\nPlease email me directly at rachitshah2809@gmail.com`, 'error');
-        }
-    } finally {
-        // Reset button state
-        submitBtn.disabled = false;
-        btnText.style.display = 'inline-block';
-        btnLoading.style.display = 'none';
-    }
-});
 
-function showFormMessage(message, type) {
-    formMessage.textContent = message;
-    formMessage.className = `form-message ${type}`;
-    formMessage.style.display = 'block';
-    
-    // Hide message after 5 seconds
-    setTimeout(() => {
-        formMessage.style.display = 'none';
-    }, 5000);
+        try {
+            const response = await fetch(CONFIG.salesforce.apiEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (response.ok || response.status === 201) {
+                formMessage.textContent = 'Message sent successfully! I will get back to you soon.';
+                formMessage.style.color = '#10b981'; // Green
+                formMessage.style.display = 'block';
+                contactForm.reset();
+            } else {
+                throw new Error('Failed to send message');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            formMessage.textContent = 'Something went wrong. Please try again or email me directly.';
+            formMessage.style.color = '#ef4444'; // Red
+            formMessage.style.display = 'block';
+        } finally {
+            submitBtn.disabled = false;
+            btnText.style.display = 'inline-block';
+            btnLoading.style.display = 'none';
+        }
+    });
 }
-
-function showNotification(message, type) {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: ${type === 'success' ? '#4ea8de' : '#ff6b6b'};
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 10px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        z-index: 10000;
-        animation: slideIn 0.3s ease;
-    `;
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
-}
-
-// Add notification animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
 
 // ===== SCROLL ANIMATIONS =====
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Observe all sections and cards
-document.querySelectorAll('section, .project-card, .timeline-item, .skill-item').forEach(el => {
+document.querySelectorAll('.card, .hero-content, .section-title').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'all 0.6s ease-out';
     observer.observe(el);
 });
 
-// ===== ACTIVE NAV LINK ON SCROLL =====
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-menu a');
+// ===== 7. PROJECT FILTERING =====
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
 
-window.addEventListener('scroll', () => {
-    let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
+if (filterBtns.length > 0) {
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const category = btn.getAttribute('data-category');
+            
+            projectCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                let match = false;
+
+                if (category === 'all') {
+                    match = true;
+                } else if (category === 'lwc') {
+                    // Match LWC or Apex
+                    if (text.includes('lwc') || text.includes('apex')) match = true;
+                } else if (category === 'flows') {
+                    if (text.includes('flow')) match = true;
+                } else if (category === 'integration') {
+                    if (text.includes('api') || text.includes('integration')) match = true;
+                }
+
+                if (match) {
+                    card.style.display = 'block';
+                    setTimeout(() => card.style.opacity = '1', 50);
+                } else {
+                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                }
+            });
+        });
     });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// ===== SCROLL TO TOP BUTTON =====
-const scrollToTopBtn = document.getElementById('scrollToTop');
-
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        scrollToTopBtn.classList.add('visible');
-    } else {
-        scrollToTopBtn.classList.remove('visible');
-    }
-});
-
-scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// ===== TYPING ANIMATION =====
-const typingText = document.querySelector('.typing-text');
-const roles = [
-    'Salesforce Developer',
-    'Apex Developer',
-    'LWC Specialist',
-    'CRM Solutions Expert'
-];
-let roleIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-let typingSpeed = 150;
-
-function typeRole() {
-    const currentRole = roles[roleIndex];
-    
-    if (isDeleting) {
-        typingText.textContent = currentRole.substring(0, charIndex - 1);
-        charIndex--;
-        typingSpeed = 50;
-    } else {
-        typingText.textContent = currentRole.substring(0, charIndex + 1);
-        charIndex++;
-        typingSpeed = 150;
-    }
-    
-    if (!isDeleting && charIndex === currentRole.length) {
-        // Pause at end
-        typingSpeed = 2000;
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        roleIndex = (roleIndex + 1) % roles.length;
-        typingSpeed = 500;
-    }
-    
-    setTimeout(typeRole, typingSpeed);
 }
 
-// Start typing animation after page loads
-// (Moved to dynamic experience calculation function)
-
-// ===== ENHANCED SCROLL ANIMATIONS =====
-const animateOnScroll = () => {
-    const elements = document.querySelectorAll('.project-card, .timeline-item, .skill-item, .contact-item');
-    
-    elements.forEach((element, index) => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementBottom = element.getBoundingClientRect().bottom;
-        const windowHeight = window.innerHeight;
-        
-        if (elementTop < windowHeight - 100 && elementBottom > 0) {
-            // Add staggered delay for cards in the same row
-            setTimeout(() => {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, index * 100);
-        }
-    });
-};
-
-// Initialize elements for animation
-const initializeAnimations = () => {
-    const elements = document.querySelectorAll('.project-card, .timeline-item, .skill-item, .contact-item');
-    elements.forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
-        element.style.transition = 'all 0.6s ease';
-    });
-};
-
-window.addEventListener('load', () => {
-    initializeAnimations();
-    animateOnScroll();
-});
-
-window.addEventListener('scroll', animateOnScroll);
-
-// ===== SKILL ITEMS HOVER EFFECT =====
-document.querySelectorAll('.skill-item').forEach(skill => {
-    skill.addEventListener('mouseenter', function() {
-        this.style.animation = 'pulse 0.5s ease';
-    });
-    
-    skill.addEventListener('animationend', function() {
-        this.style.animation = '';
-    });
-});
-
-// ===== PROJECT CARD TILT EFFECT =====
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-    });
-});
-
-// ===== SMOOTH REVEAL FOR TIMELINE =====
-const timelineItems = document.querySelectorAll('.timeline-item');
-const timelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateX(0)';
-            }, index * 200);
-        }
-    });
-}, { threshold: 0.1 });
-
-timelineItems.forEach(item => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateX(-50px)';
-    item.style.transition = 'all 0.6s ease';
-    timelineObserver.observe(item);
-});
-
-// ===== NAVBAR ACTIVE LINK ENHANCEMENT =====
-const navLinksEnhanced = document.querySelectorAll('.nav-menu a');
-navLinksEnhanced.forEach(link => {
-    link.addEventListener('click', function() {
-        navLinksEnhanced.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-    });
-});
-
-// ===== DYNAMIC EXPERIENCE CALCULATION =====
+// ===== 8. DYNAMIC YEAR CALCULATION =====
 function calculateExperience() {
-    const startDate = new Date('2023-08-01');
+    const startDate = new Date('2023-08-01'); // Started as Trainee in Aug 2023
     const today = new Date();
     
     let years = today.getFullYear() - startDate.getFullYear();
@@ -512,53 +196,25 @@ function calculateExperience() {
         months += 12;
     }
     
-    const experienceText = `${years}.${months}+`;
-    const experienceYears = years + (months / 10); // For better readability like 2.3 instead of 2.3
-    
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-        metaDescription.setAttribute('content', `Rachit Shah - Professional Salesforce Developer with ${experienceText} years of experience in Apex, LWC, and CRM solutions`);
+    // Format: "1.5+" (approx)
+    // Logic: If months > 6, round up to next half year or year
+    let experienceText = (years + (months/12)).toFixed(1) + '+';
+
+    const expYearsElement = document.getElementById('expYears');
+    if (expYearsElement) {
+        expYearsElement.textContent = experienceText;
     }
     
-    // Update hero stats (first stat box)
-    const heroStatNumber = document.querySelector('.hero-stats .stat-box:first-child .stat-number');
-    if (heroStatNumber) {
-        heroStatNumber.textContent = experienceText;
-    }
-    
-    // Update hero description
-    const heroDescription = document.querySelector('.hero-description');
-    if (heroDescription) {
-        heroDescription.textContent = `Passionate Salesforce developer with over ${experienceText} years of industry experience at MV Clouds, building scalable CRM solutions and innovative applications on the Salesforce platform. Specialized in Apex, Lightning Web Components, and seamless third-party integrations.`;
-    }
-    
-    // Update About section first paragraph
-    const aboutFirstParagraph = document.querySelector('.about-text p:first-child');
-    if (aboutFirstParagraph) {
-        aboutFirstParagraph.textContent = `I'm a dedicated Salesforce developer with over ${experienceText} years of professional experience, specializing in building robust and scalable CRM solutions. My journey began with a comprehensive 6-month training program, followed by ${Math.floor(years * 12 + months - 6)}+ months of hands-on development work delivering enterprise-grade Salesforce solutions.`;
-    }
-    
-    // Update footer about text
-    const footerAboutText = document.querySelector('.footer-about p');
-    if (footerAboutText) {
-        footerAboutText.textContent = `A passionate Salesforce developer with over ${experienceText} years of experience in building scalable CRM solutions and custom applications on the Salesforce platform.`;
-    }
-    
-    // Update footer stats
-    const footerStatNumber = document.querySelector('.footer-stats .stat-item:first-child .stat-number');
-    if (footerStatNumber) {
-        footerStatNumber.textContent = experienceText;
+    // Resume link for download button
+    const resumeBtn = document.getElementById('downloadResumeBtn');
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', () => {
+             window.open(CONFIG.resume.url, '_blank');
+        });
     }
 }
 
-// Calculate experience on page load
+// window.addEventListener('load', calculateExperience);
 window.addEventListener('load', () => {
     calculateExperience();
-    setTimeout(typeRole, 1000);
 });
-
-// ===== CONSOLE MESSAGE =====
-console.log('%c👋 Hello there!', 'color: #5390d9; font-size: 20px; font-weight: bold;');
-console.log('%cInterested in the code? Check it out on GitHub!', 'color: #64dfdf; font-size: 14px;');
-console.log('%cBuilt with ❤️ and lots of coffee ☕', 'color: #80ffdb; font-size: 12px;');

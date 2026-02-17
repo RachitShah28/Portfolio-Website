@@ -5,7 +5,7 @@ const CONFIG = {
         apiKey: 'RachitShah@999'
     },
     resume: {
-        url: 'https://drive.google.com/file/d/1EyQWNiVD--Bs84ZAQb7ozd9BI6o9vJg6/view?usp=sharing',
+        url: 'https://drive.google.com/file/d/1-BitCGFkBERP1yqQ60lHVmX3doI4uPVE/view?usp=drive_link',
         filename: 'RachitShah_Resume.pdf'
     }
 };
